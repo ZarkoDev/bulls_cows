@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Game;
 use App\Http\Requests\GameStartRequest;
 use App\Http\Services\GameGuessService;
 use App\Http\Services\GameService;
@@ -40,11 +41,11 @@ class GameController extends Controller
     public function guessNumber(Request $request, GameService $gameService)
     {
         $validator = Validator::make($request->all(), [
-            'number'   => 'required|digits:4',
+            'number'   => 'required|digits:' . Game::QUANTITY_DEFAULT
         ]);
 
         if ($validator->fails()) {
-            return ['error' => 'The number must be 4 digits'];
+            return ['error' => 'The number must be ' . Game::QUANTITY_DEFAULT . ' digits'];
         }
 
         $results = $gameService->getBullsAndCows($request->number, new GameGuessService);
