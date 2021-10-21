@@ -19,6 +19,7 @@ class CreateGameGuessesTable extends Migration
             $table->integer('number')->unsigned();
             $table->integer('bulls')->unsigned()->default(0);
             $table->integer('cows')->unsigned()->default(0);
+            $table->integer('score')->unsigned()->default(0);
 
             $table->foreign('game_id')->references('id')->on('games');
         });

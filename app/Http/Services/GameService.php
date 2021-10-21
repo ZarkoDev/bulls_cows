@@ -49,12 +49,7 @@ class GameService implements GameInterface
 
     public function getGame()
     {
-        if (!session('user_id')) {
-            $this->setError('User not found');
-            return false;
-        }
-
-        $game = $this->userService->getUserLastGame(session('user_id'));
+        $game = auth()->user()->games()->orderBy('id', 'desc')->first();
         $this->processValidations($game);
 
         return $game;
